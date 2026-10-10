@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kromisto.net</title>
+
+  <style>
+    body {
+      background: #555;
+      color: #eee;
+      font-family: serif, georgia, calibri;
+      text-align: center;
+      margin: 0;
+      padding-top: 18vh;
+    }
+
+    h1 {
+      font-size: 35px;
+      font-weight: normal;
+      margin-bottom: 18px;
+    }
+
+    .status {
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .years {
+      margin-top: 100px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>kromisto.net</h1>
+
+  <p class="status">hibernating</p>
+
+  <p class="years">
+    2005-<span id="year"></span>
+  </p>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
