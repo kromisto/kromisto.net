@@ -1,52 +1,57 @@
+---
+---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kromisto.net</title>
-
-  <style>
-    body {
-      background: #555;
-      color: #eee;
-      font-family: serif, georgia, calibri;
-      text-align: center;
-      margin: 0;
-      padding-top: 18vh;
-    }
-
-    h1 {
-      font-size: 35px;
-      font-weight: normal;
-      margin-bottom: 18px;
-    }
-
-    .status {
-      font-size: 15px;
-      font-style: italic;
-    }
-
-    .years {
-      margin-top: 100px;
-      font-size: 11px;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+  <script src="{{ '/script.js' | relative_url }}" defer></script>
 </head>
-
 <body>
+  {% assign photos = site.static_files | where_exp: "file", "file.path contains '/images/'" %}
+  {% assign photos = photos | where: "extname", ".jpg" %}
+  {% assign photos = photos | sort: "name" | reverse %}
+  {% assign latest = photos | first %}
 
-  <h1>kromisto.net</h1>
+  <div class="page">
+    <header>
+      <h1><a href="{{ '/' | relative_url }}">kromisto.net</a></h1>
+    </header>
 
-  <p class="status">hibernating</p>
+    <main class="home">
+      {% if latest %}
+        {% assign photo_date = latest.name | slice: 0, 10 %}
+        {% assign display_date = photo_date | replace: "-", "/" %}
 
-  <p class="years">
-    2005-<span id="year"></span>
-  </p>
+        <div class="photo" data-photo-date="{{ photo_date }}">
+          <img src="{{ latest.path | relative_url }}" alt="Photo - {{ display_date }}">
+          <div class="date">{{ display_date }}</div>
+        </div>
 
-  <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-  </script>
+        <div class="hibernating" hidden>
+          <span>hibernating</span>
+        </div>
+      {% else %}
+        <div class="hibernating">
+          <span>hibernating</span>
+        </div>
+      {% endif %}
+    </main>
 
+    <footer class="footer">
+      <a class="archive-link" href="{{ '/archive.html' | relative_url }}">archive</a>
+
+      <div class="footer-meta">
+        <button class="years" type="button" data-contact aria-label="Show contact">
+          2005-<span data-year>{{ site.time | date: "%Y" }}</span>
+        </button>
+        <div class="mail-space">
+          <div class="mail" aria-hidden="true">mail@kromisto.net</div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>archive - kromisto.net</title>
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+  <script src="{{ '/script.js' | relative_url }}" defer></script>
+</head>
+<body>
+  {% assign photos = site.static_files | where_exp: "file", "file.path contains '/images/'" %}
+  {% assign photos = photos | where: "extname", ".jpg" %}
+  {% assign photos = photos | sort: "name" | reverse %}
+
+  <div class="page">
+    <header>
+      <h1><a href="{{ '/' | relative_url }}">kromisto.net</a></h1>
+    </header>
+
+    <main class="archive">
+      {% for photo in photos %}
+        {% assign photo_date = photo.name | slice: 0, 10 %}
+        {% assign display_date = photo_date | replace: "-", "/" %}
+
+        <a class="archive-item" href="{{ photo.path | relative_url }}">
+          <img src="{{ photo.path | relative_url }}" alt="Photo - {{ display_date }}" loading="lazy">
+          <span>{{ display_date }}</span>
+        </a>
+      {% endfor %}
+    </main>
+
+    <footer class="footer archive-footer">
+      <div class="footer-meta">
+        <button class="years" type="button" data-contact aria-label="Show contact">
+          2005-<span data-year>{{ site.time | date: "%Y" }}</span>
+        </button>
+        <div class="mail-space">
+          <div class="mail" aria-hidden="true">mail@kromisto.net</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
