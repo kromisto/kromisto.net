@@ -1,4 +1,4 @@
-const day = 24 * 60 * 60 * 1000;
+const dayInMs = 24 * 60 * 60 * 1000;
 const maxAge = 14;
 
 const photo = document.querySelector("[data-photo-date]");
@@ -10,7 +10,7 @@ if (photo && hibernating) {
 
   const now = new Date();
   const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-  const age = Math.floor((today - photoDay) / day);
+  const age = Math.floor((today - photoDay) / dayInMs);
 
   if (age > maxAge) {
     photo.hidden = true;
