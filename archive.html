@@ -10,7 +10,7 @@
   <script src="{{ '/script.js' | relative_url }}" defer></script>
 </head>
 <body>
-  {% assign photos = site.static_files | where_exp: "file", "file.path contains '/images/'" %}
+  {% assign photos = site.static_files | where_exp: "file", "file.path contains '/img/'" %}
   {% assign photos = photos | where: "extname", ".jpg" %}
   {% assign photos = photos | sort: "name" | reverse %}
 
